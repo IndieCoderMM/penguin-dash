@@ -24,7 +24,7 @@ export default class Preloader extends Phaser.Scene {
   create() {
     this.anims.create({
       key: AnimationKeys.PenguinWalk,
-      frames: this.anims.generateFrameNames('penguin', {
+      frames: this.anims.generateFrameNames(TextureKeys.Penguin, {
         start: 1,
         end: 4,
         prefix: AnimationKeys.PenguinWalk,
@@ -33,6 +33,19 @@ export default class Preloader extends Phaser.Scene {
       }),
       frameRate: 10,
       repeat: -1,
+    });
+
+    this.anims.create({
+      key: AnimationKeys.PenguinJump,
+      frames: this.anims.generateFrameNames(TextureKeys.Penguin, {
+        start: 2,
+        end: 3,
+        prefix: AnimationKeys.PenguinJump,
+        zeroPad: 2,
+        suffix: '.png',
+      }),
+      frameRate: 1,
+      repeat: 0,
     });
 
     this.scene.start(SceneKeys.Game);

@@ -1,11 +1,10 @@
 import Phaser from 'phaser';
 import TextureKeys from '../consts/TextureKeys';
 import SceneKeys from '../consts/SceneKeys';
-import AnimationKeys from '../consts/AnimationKeys';
+import Penguin from '../game/Penguin';
 
 export default class Game extends Phaser.Scene {
   private background!: Phaser.GameObjects.TileSprite;
-  private igloo!: Phaser.GameObjects.Image;
   private decors: Phaser.GameObjects.Image[] = [];
 
   constructor() {
@@ -40,15 +39,8 @@ export default class Game extends Phaser.Scene {
 
     this.decors = [igloo, treeSmall, treeLarge];
 
-    const penguin = this.physics.add
-      .sprite(
-        width * 0.5,
-        height - 200,
-        TextureKeys.Penguin,
-        'penguin_walk01.png',
-      )
-      .setOrigin(0.5, 1)
-      .play(AnimationKeys.PenguinWalk);
+    const penguin = new Penguin(this, width * 0.5, height - 200);
+    this.add.existing(penguin);
 
     const body = penguin.body as Phaser.Physics.Arcade.Body;
     body.setCollideWorldBounds(true);
