@@ -14,6 +14,7 @@ export default class Preloader extends Phaser.Scene {
     this.load.image(TextureKeys.TreeSmall, 'world/object_tree_small.png');
     this.load.image(TextureKeys.TreeLarge, 'world/object_tree_large.png');
     this.load.image(TextureKeys.Iceberg, 'world/object_iceberg.png');
+    this.load.image(TextureKeys.Snowman, 'characters/snowman.png');
     this.load.atlas(
       TextureKeys.Penguin,
       'characters/penguin.png',
@@ -45,7 +46,18 @@ export default class Preloader extends Phaser.Scene {
         suffix: '.png',
       }),
       frameRate: 1,
-      repeat: 0,
+    });
+
+    this.anims.create({
+      key: AnimationKeys.PenguinDie,
+      frames: this.anims.generateFrameNames(TextureKeys.Penguin, {
+        start: 1,
+        end: 4,
+        prefix: AnimationKeys.PenguinDie,
+        zeroPad: 2,
+        suffix: '.png',
+      }),
+      frameRate: 10,
     });
 
     this.scene.start(SceneKeys.Game);

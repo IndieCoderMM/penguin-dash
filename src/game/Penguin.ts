@@ -1,8 +1,17 @@
 import Phaser from 'phaser';
 import TextureKeys from '../consts/TextureKeys';
 import AnimationKeys from '../consts/AnimationKeys';
+import Settings from '../consts/Settings';
+
+// TODO Create state machine
+enum PenguinState {
+  Running,
+  Killed,
+  Dead,
+}
 
 export default class Penguin extends Phaser.GameObjects.Container {
+  private penguinState = PenguinState.Running;
   private jumping: boolean;
   private groundLevel: number;
   private sprite: Phaser.GameObjects.Sprite;
@@ -29,11 +38,18 @@ export default class Penguin extends Phaser.GameObjects.Container {
     this.cursors = scene.input.keyboard.createCursorKeys();
   }
 
+  kill() {
+    this.sprite.anims.play(AnimationKeys.PenguinDie);
+
+    const body = this.body as Phaser.Physics.Arcade.Body;
+    body.setVelocity(0, 0);
+  }
+
   preUpdate() {
     const body = this.body as Phaser.Physics.Arcade.Body;
 
     if (!this.jumping && this.cursors.space?.isDown) {
-      body.setVelocityY(-400);
+      body.setVelocityY(-Settings.JUMP_FORCE);
       this.jumping = true;
     }
 
