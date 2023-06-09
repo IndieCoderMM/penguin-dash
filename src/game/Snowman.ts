@@ -14,8 +14,11 @@ export default class Snowman extends Phaser.GameObjects.Container {
 
     scene.physics.add.existing(this, true);
     const body = this.body as Phaser.Physics.Arcade.StaticBody;
-    body.setSize(this.sprite.width, this.sprite.height);
-    body.setOffset(this.sprite.displayWidth * -0.5, -this.sprite.displayHeight);
+    body.setSize(this.sprite.width - 50, this.sprite.height - 50);
+    body.setOffset(
+      -0.3 * this.sprite.displayWidth,
+      -0.8 * this.sprite.displayHeight,
+    );
 
     body.position.x = this.x + body.offset.x;
     body.position.y = this.y + body.offset.y;

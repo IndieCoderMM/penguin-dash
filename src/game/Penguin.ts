@@ -3,7 +3,6 @@ import TextureKeys from '../consts/TextureKeys';
 import AnimationKeys from '../consts/AnimationKeys';
 import Settings from '../consts/Settings';
 
-// TODO Create state machine
 enum PenguinState {
   Running,
   Killed,
@@ -39,6 +38,10 @@ export default class Penguin extends Phaser.GameObjects.Container {
   }
 
   kill() {
+    if (this.penguinState !== PenguinState.Running) return;
+
+    this.penguinState = PenguinState.Killed;
+
     this.sprite.anims.play(AnimationKeys.PenguinDie);
 
     const body = this.body as Phaser.Physics.Arcade.Body;
@@ -46,15 +49,22 @@ export default class Penguin extends Phaser.GameObjects.Container {
   }
 
   preUpdate() {
-    const body = this.body as Phaser.Physics.Arcade.Body;
+    switch (this.penguinState) {
+      case PenguinState.Running: {
+        const body = this.body as Phaser.Physics.Arcade.Body;
 
-    if (!this.jumping && this.cursors.space?.isDown) {
-      body.setVelocityY(-Settings.JUMP_FORCE);
-      this.jumping = true;
+        if (!this.jumping && this.cursors.space?.isDown) {
+          body.setVelocityY(-Settings.JUMP_FORCE);
+          this.jumping = true;
+        }
+
+        if (body.y + body.height == this.groundLevel) this.jumping = false;
+        if (this.jumping)
+          this.sprite.anims.play(AnimationKeys.PenguinJump, true);
+        else this.sprite.anims.play(AnimationKeys.PenguinWalk, true);
+
+        break;
+      }
     }
-
-    if (body.y + body.height == this.groundLevel) this.jumping = false;
-    if (this.jumping) this.sprite.anims.play(AnimationKeys.PenguinJump, true);
-    else this.sprite.anims.play(AnimationKeys.PenguinWalk, true);
   }
 }

@@ -47,7 +47,9 @@ export default class Game extends Phaser.Scene {
     this.decors = [igloo, treeSmall, treeLarge];
 
     this.penguin = new Penguin(this, width * 0.5, groundLevel);
+    this.penguin.setDepth(1); // Display over others
     this.add.existing(this.penguin);
+
     const body = this.penguin.body as Phaser.Physics.Arcade.Body;
     body.setCollideWorldBounds(true);
     body.setVelocityX(Settings.SPEED);
@@ -82,7 +84,7 @@ export default class Game extends Phaser.Scene {
     obj1: Phaser.GameObjects.GameObject,
     obj2: Phaser.GameObjects.GameObject,
   ) {
-    console.log('collide');
+    this.penguin.kill();
   }
 
   private wrapSnowman() {
