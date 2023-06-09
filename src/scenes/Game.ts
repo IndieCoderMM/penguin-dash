@@ -16,8 +16,7 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
-    const width = this.scale.width;
-    const height = this.scale.height;
+    const { width, height } = this.scale;
     const groundLevel = height - 200;
     this.background = this.add
       .tileSprite(0, 0, width, height, TextureKeys.Background)
