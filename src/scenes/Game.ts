@@ -53,6 +53,7 @@ export default class Game extends Phaser.Scene {
 
     // Add objects to decors
     this.decors = [igloo, treeSmall, treeLarge];
+    this.decors.sort(() => 0.5 - Math.random());
 
     this.coins = this.physics.add.staticGroup();
     this.spawnCoins();
@@ -126,6 +127,7 @@ export default class Game extends Phaser.Scene {
     this.wrapSnowman();
     this.background.setTilePosition(this.cameras.main.scrollX);
     this.scoreLabel.text = `Score: ${this.score}`;
+    this.teleportBackwards();
   }
 
   private spawnCoins() {
@@ -141,7 +143,7 @@ export default class Game extends Phaser.Scene {
     let x = rightEdge + 100;
     const y = this.scale.height * 0.5;
 
-    const numCoins = Phaser.Math.Between(3, 20);
+    const numCoins = Phaser.Math.Between(3, 10);
 
     for (let i = 0; i < numCoins; i++) {
       const coin = this.coins.get(
@@ -180,6 +182,26 @@ export default class Game extends Phaser.Scene {
     this.penguin.kill();
     this.coinSpawner.destroy();
     this.scoreAdder.destroy();
+  }
+
+  private teleportBackwards() {
+    const scrollX = this.cameras.main.scrollX;
+    const maxX = 6000;
+
+    if (scrollX > maxX) {
+      this.penguin.x -= maxX;
+      this.snowman.x -= maxX;
+      const snowBody = this.snowman.body as Phaser.Physics.Arcade.StaticBody;
+      snowBody.x -= maxX;
+
+      this.decors.forEach((obj) => (obj.x -= maxX));
+      this.coins.children.each((child) => {
+        const coin = child as Phaser.Physics.Arcade.Sprite;
+        if (!coin.active) return;
+        coin.x -= maxX;
+        coin.body.updateFromGameObject();
+      });
+    }
   }
 
   private wrapSnowman() {

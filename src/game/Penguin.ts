@@ -20,12 +20,12 @@ export default class Penguin extends Phaser.GameObjects.Container {
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y);
 
-    this.sprite = scene.add
-      .sprite(0, 0, TextureKeys.Penguin)
-      .setOrigin(0.5, 1)
-      .play(AnimationKeys.PenguinWalk);
-    this.add(this.sprite);
+    this.sprite = scene.add.sprite(0, 0, TextureKeys.Penguin).setOrigin(0.5, 1);
 
+    this.createAnimations();
+    this.sprite.play(AnimationKeys.PenguinWalk);
+
+    this.add(this.sprite);
     scene.physics.add.existing(this);
 
     const body = this.body as Phaser.Physics.Arcade.Body;
@@ -43,7 +43,7 @@ export default class Penguin extends Phaser.GameObjects.Container {
 
     this.penguinState = PenguinState.Killed;
 
-    this.sprite.anims.play(AnimationKeys.PenguinDie);
+    this.sprite.play(AnimationKeys.PenguinDie);
   }
 
   preUpdate() {
@@ -56,9 +56,8 @@ export default class Penguin extends Phaser.GameObjects.Container {
         }
 
         if (body.y + body.height == this.groundLevel) this.jumping = false;
-        if (this.jumping)
-          this.sprite.anims.play(AnimationKeys.PenguinJump, true);
-        else this.sprite.anims.play(AnimationKeys.PenguinWalk, true);
+        if (this.jumping) this.sprite.play(AnimationKeys.PenguinJump, true);
+        else this.sprite.play(AnimationKeys.PenguinWalk, true);
 
         break;
       }
@@ -82,5 +81,44 @@ export default class Penguin extends Phaser.GameObjects.Container {
         break;
       }
     }
+  }
+
+  private createAnimations() {
+    this.sprite.anims.create({
+      key: AnimationKeys.PenguinWalk,
+      frames: this.sprite.anims.generateFrameNames(TextureKeys.Penguin, {
+        start: 1,
+        end: 4,
+        prefix: AnimationKeys.PenguinWalk,
+        zeroPad: 2,
+        suffix: '.png',
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.sprite.anims.create({
+      key: AnimationKeys.PenguinJump,
+      frames: this.sprite.anims.generateFrameNames(TextureKeys.Penguin, {
+        start: 2,
+        end: 3,
+        prefix: AnimationKeys.PenguinJump,
+        zeroPad: 2,
+        suffix: '.png',
+      }),
+      frameRate: 1,
+    });
+
+    this.sprite.anims.create({
+      key: AnimationKeys.PenguinDie,
+      frames: this.sprite.anims.generateFrameNames(TextureKeys.Penguin, {
+        start: 1,
+        end: 4,
+        prefix: AnimationKeys.PenguinDie,
+        zeroPad: 2,
+        suffix: '.png',
+      }),
+      frameRate: 10,
+    });
   }
 }

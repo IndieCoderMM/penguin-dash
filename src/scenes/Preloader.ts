@@ -1,7 +1,6 @@
 import Phaser from 'phaser';
 import TextureKeys from '../consts/TextureKeys';
 import SceneKeys from '../consts/SceneKeys';
-import AnimationKeys from '../consts/AnimationKeys';
 
 export default class Preloader extends Phaser.Scene {
   constructor() {
@@ -24,43 +23,6 @@ export default class Preloader extends Phaser.Scene {
   }
 
   create() {
-    this.anims.create({
-      key: AnimationKeys.PenguinWalk,
-      frames: this.anims.generateFrameNames(TextureKeys.Penguin, {
-        start: 1,
-        end: 4,
-        prefix: AnimationKeys.PenguinWalk,
-        zeroPad: 2,
-        suffix: '.png',
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: AnimationKeys.PenguinJump,
-      frames: this.anims.generateFrameNames(TextureKeys.Penguin, {
-        start: 2,
-        end: 3,
-        prefix: AnimationKeys.PenguinJump,
-        zeroPad: 2,
-        suffix: '.png',
-      }),
-      frameRate: 1,
-    });
-
-    this.anims.create({
-      key: AnimationKeys.PenguinDie,
-      frames: this.anims.generateFrameNames(TextureKeys.Penguin, {
-        start: 1,
-        end: 4,
-        prefix: AnimationKeys.PenguinDie,
-        zeroPad: 2,
-        suffix: '.png',
-      }),
-      frameRate: 10,
-    });
-
     this.scene.start(SceneKeys.Game);
   }
 }
