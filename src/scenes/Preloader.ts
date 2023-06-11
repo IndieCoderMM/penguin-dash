@@ -16,7 +16,11 @@ export default class Preloader extends Phaser.Scene {
     this.load.image(TextureKeys.Iceberg, 'world/object_iceberg.png');
     this.load.image(TextureKeys.Snowman, 'characters/snowman.png');
     this.load.image(TextureKeys.Coin, 'world/object_coin.png');
-    this.load.image(TextureKeys.GameLogo, 'game-title.png');
+    this.load.image(TextureKeys.GameLogo, 'ui/game-title.png');
+    this.load.image(TextureKeys.PlayBtn, 'ui/play-btn.png');
+    this.load.image(TextureKeys.PlayBtnHover, 'ui/play-btn-hover.png');
+    this.load.image(TextureKeys.RetryBtn, 'ui/retry-btn.png');
+    this.load.image(TextureKeys.RetryBtnHover, 'ui/retry-btn-hover.png');
     this.load.atlas(
       TextureKeys.Penguin,
       'characters/penguin.png',
@@ -40,23 +44,20 @@ export default class Preloader extends Phaser.Scene {
       .tileSprite(0, 0, width, height, TextureKeys.Background)
       .setOrigin(0);
     this.add.image(x, 200, TextureKeys.GameLogo);
-    this.add
-      .text(x, height - 300, 'Press SPACE to Start', {
-        fontFamily: 'Arial',
-        fontSize: '50px',
-        color: '#4A90E2',
-        stroke: '#4A90E2',
-        strokeThickness: 2,
-        shadow: { stroke: false },
-        maxLines: 1,
-        resolution: 2,
-      })
-      .setOrigin(0.5);
 
-    // listen for Space press
-    const keyboard = this.input
-      .keyboard as Phaser.Input.Keyboard.KeyboardPlugin;
-    keyboard.once('keydown-SPACE', () => {
+    const playBtn = this.add.image(x, height - 300, TextureKeys.PlayBtn);
+    // * Setting interactive mode
+    playBtn.setInteractive();
+
+    // Hover effect
+    playBtn.on('pointerover', () => {
+      playBtn.setTexture(TextureKeys.PlayBtnHover);
+    });
+    playBtn.on('pointerout', () => {
+      playBtn.setTexture(TextureKeys.PlayBtn);
+    });
+
+    playBtn.on('pointerup', () => {
       // ! Starting the Game scene
       this.scene.start(SceneKeys.Game);
     });

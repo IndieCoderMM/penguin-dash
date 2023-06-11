@@ -8,6 +8,10 @@ enum TextureKeys {
   Iceberg = 'iceberg',
   Coin = 'coin',
   GameLogo = 'game-logo',
+  PlayBtn = 'play-btn',
+  PlayBtnHover = 'play-btn-hover',
+  RetryBtn = 'retry-btn',
+  RetryBtnHover = 'retry-btn-hover',
 }
 
 export default TextureKeys;
