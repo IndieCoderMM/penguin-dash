@@ -4,6 +4,7 @@ import SceneKeys from '../consts/SceneKeys';
 import Penguin from '../game/Penguin';
 import Snowman from '../game/Snowman';
 import Settings from '../consts/Settings';
+import AudioKeys from '../consts/AudioKeys';
 
 export default class Game extends Phaser.Scene {
   private background!: Phaser.GameObjects.TileSprite;
@@ -15,6 +16,8 @@ export default class Game extends Phaser.Scene {
   private score = 0;
   private coinSpawner!: Phaser.Time.TimerEvent;
   private scoreAdder!: Phaser.Time.TimerEvent;
+  private coinSfx!: Phaser.Sound.BaseSound;
+  private bgMusic!: Phaser.Sound.BaseSound;
 
   constructor() {
     super(SceneKeys.Game);
@@ -120,6 +123,11 @@ export default class Game extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
+
+    // SFX
+    this.coinSfx = this.sound.add(AudioKeys.Coin);
+    this.bgMusic = this.sound.add(AudioKeys.Background, { loop: true });
+    this.bgMusic.play();
   }
 
   update(t: number, dt: number) {
@@ -172,6 +180,7 @@ export default class Game extends Phaser.Scene {
     // Remove coin
     const coin = obj2 as Phaser.Physics.Arcade.Sprite;
     this.coins.killAndHide(coin);
+    this.coinSfx.play();
     coin.body.enable = false;
   }
 
@@ -182,6 +191,7 @@ export default class Game extends Phaser.Scene {
     this.penguin.kill();
     this.coinSpawner.destroy();
     this.scoreAdder.destroy();
+    this.bgMusic.stop();
   }
 
   private teleportBackwards() {

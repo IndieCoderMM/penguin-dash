@@ -1,14 +1,17 @@
 import Phaser from 'phaser';
 
 import SceneKeys from '../consts/SceneKeys';
+import AudioKeys from '../consts/AudioKeys';
 
 export default class GameOver extends Phaser.Scene {
+  private gameoverSfx!: Phaser.Sound.BaseSound;
+
   constructor() {
     super(SceneKeys.GameOver);
   }
 
   create() {
-    const { width, height } = this.scale;
+    const width = this.scale.width;
 
     const x = width * 0.5;
     const y = 200;
@@ -25,6 +28,9 @@ export default class GameOver extends Phaser.Scene {
         resolution: 2,
       })
       .setOrigin(0.5);
+
+    this.gameoverSfx = this.sound.add(AudioKeys.GameOver);
+    this.gameoverSfx.play();
 
     // listen for Space press
     this.input.keyboard.once('keydown-SPACE', () => {

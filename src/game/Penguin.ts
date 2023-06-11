@@ -3,6 +3,7 @@ import TextureKeys from '../consts/TextureKeys';
 import AnimationKeys from '../consts/AnimationKeys';
 import Settings from '../consts/Settings';
 import SceneKeys from '../consts/SceneKeys';
+import AudioKeys from '~/consts/AudioKeys';
 
 enum PenguinState {
   Running,
@@ -16,6 +17,8 @@ export default class Penguin extends Phaser.GameObjects.Container {
   private groundLevel: number;
   private sprite: Phaser.GameObjects.Sprite;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
+  private jumpSfx: Phaser.Sound.BaseSound;
+  private hitSfx: Phaser.Sound.BaseSound;
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y);
@@ -36,12 +39,16 @@ export default class Penguin extends Phaser.GameObjects.Container {
     this.groundLevel = scene.scale.height - 200;
     // Controls
     this.cursors = scene.input.keyboard.createCursorKeys();
+    // SFX
+    this.jumpSfx = scene.sound.add(AudioKeys.Jump);
+    this.hitSfx = scene.sound.add(AudioKeys.Hit);
   }
 
   kill() {
     if (this.penguinState !== PenguinState.Running) return;
 
     this.penguinState = PenguinState.Killed;
+    this.hitSfx.play();
 
     this.sprite.play(AnimationKeys.PenguinDie);
   }
@@ -53,6 +60,7 @@ export default class Penguin extends Phaser.GameObjects.Container {
         if (!this.jumping && this.cursors.space?.isDown) {
           body.setVelocityY(-Settings.JUMP_FORCE);
           this.jumping = true;
+          this.jumpSfx.play();
         }
 
         if (body.y + body.height == this.groundLevel) this.jumping = false;

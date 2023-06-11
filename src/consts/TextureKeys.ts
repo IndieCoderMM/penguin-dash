@@ -7,6 +7,7 @@ enum TextureKeys {
   TreeSmall = 'tree_small',
   Iceberg = 'iceberg',
   Coin = 'coin',
+  GameLogo = 'game-logo',
 }
 
 export default TextureKeys;
