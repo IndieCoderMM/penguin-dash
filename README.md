@@ -1,18 +1,33 @@
+<details>
+<summary>Table of Contents</summary>
+
+- [⛄ Penguin Dash: Frosty Adventure](#-penguin-dash-frosty-adventure)
+  - [📷 Screenshot](#-screenshot)
+  - [🎮 Play Game](#-play-game)
+  - [🔧 Built With](#-built-with)
+  - [🕹 Controls](#-controls)
+  - [🎨 Assets](#-assets)
+  - [🚀 Getting Started](#-getting-started)
+  - [🎈 Deployment](#-deployment)
+  - [🙏 Acknowledgment](#-acknowledgment)
+  - [📧 Contact](#-contact)
+  - [🤝 Contribution](#-contribution)
+  - [📜 License](#-license)
+</details>
+
 # ⛄ Penguin Dash: Frosty Adventure
 
 **Slide, jump, and glide through a frosty adventure!**
 
-## 📖 Description
-
 Penguin Dash is an exciting 2D platformer runner game set in a world of snowy mountains. Dodge snowman enemies, collect power-ups, and experience an icy adventure like never before!
 
-## 📷 Demo Gameplay
+## 📷 Screenshot
 
 ![Demo](./penguin-dash-demo.gif)
 
 ## 🎮 Play Game
 
-> Click the image to play the game in your browser
+> Click the image to play this game in your browser
 
 [![Start Game](./app_screenshot.png)](https://indiecodermm.github.io/penguin-dash/)
 
@@ -29,8 +44,8 @@ Penguin Dash is an exciting 2D platformer runner game set in a world of snowy mo
 
 ## 🎨 Assets
 
-- Sprites and background images from [GAMEARTGUPPY](https://www.gameartguppy.com/)
-- Sound Effect from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=6462)
+- 🐧 Sprites and background images from [GAMEARTGUPPY](https://www.gameartguppy.com/)
+- 🔊 Sound Effect from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=6462)
 
 ## 🚀 Getting Started
 
@@ -69,7 +84,7 @@ npm run deploy
 
 ## 🙏 Acknowledgment
 
-This game was built by following the tutorial project from the book [Infinite Runner in Phaser 3](https://ourcade.co/books/infinite-runner-phaser3/).
+This game was built by following the tutorial project from the book [Infinite Runner in Phaser 3](https://ourcade.co/books/infinite-runner-phaser3/). Special thanks to the author [supertommy](https://github.com/supertommy) for his valuable guidance and resources.
 
 ## 📧 Contact
 
