@@ -17,4 +17,6 @@ const config: Phaser.Types.Core.GameConfig = {
   scene: [Preloader, Game, GameOver],
 };
 
+document.body.style.overflow = 'hidden';
+
 export default new Phaser.Game(config);

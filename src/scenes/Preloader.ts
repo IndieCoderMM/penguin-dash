@@ -54,7 +54,9 @@ export default class Preloader extends Phaser.Scene {
       .setOrigin(0.5);
 
     // listen for Space press
-    this.input.keyboard.once('keydown-SPACE', () => {
+    const keyboard = this.input
+      .keyboard as Phaser.Input.Keyboard.KeyboardPlugin;
+    keyboard.once('keydown-SPACE', () => {
       // ! Starting the Game scene
       this.scene.start(SceneKeys.Game);
     });

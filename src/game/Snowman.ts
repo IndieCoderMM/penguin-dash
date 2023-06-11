@@ -25,6 +25,7 @@ export default class Snowman extends Phaser.GameObjects.Container {
   }
 
   preUpdate() {
-    this.sprite.flipX = this.target.x > this.body.position.x;
+    const body = this.body as Phaser.Physics.Arcade.StaticBody;
+    this.sprite.flipX = this.target.x > body.position.x;
   }
 }

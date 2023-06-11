@@ -33,7 +33,9 @@ export default class GameOver extends Phaser.Scene {
     this.gameoverSfx.play();
 
     // listen for Space press
-    this.input.keyboard.once('keydown-SPACE', () => {
+    const keyboard = this.input
+      .keyboard as Phaser.Input.Keyboard.KeyboardPlugin;
+    keyboard.once('keydown-SPACE', () => {
       this.scene.stop(SceneKeys.GameOver);
 
       // ! Restarting the Game scene

@@ -3,7 +3,7 @@ import TextureKeys from '../consts/TextureKeys';
 import AnimationKeys from '../consts/AnimationKeys';
 import Settings from '../consts/Settings';
 import SceneKeys from '../consts/SceneKeys';
-import AudioKeys from '~/consts/AudioKeys';
+import AudioKeys from '../consts/AudioKeys';
 
 enum PenguinState {
   Running,
@@ -38,7 +38,9 @@ export default class Penguin extends Phaser.GameObjects.Container {
     this.jumping = false;
     this.groundLevel = scene.scale.height - 200;
     // Controls
-    this.cursors = scene.input.keyboard.createCursorKeys();
+    const keyboard = scene.input
+      .keyboard as Phaser.Input.Keyboard.KeyboardPlugin;
+    this.cursors = keyboard.createCursorKeys();
     // SFX
     this.jumpSfx = scene.sound.add(AudioKeys.Jump);
     this.hitSfx = scene.sound.add(AudioKeys.Hit);

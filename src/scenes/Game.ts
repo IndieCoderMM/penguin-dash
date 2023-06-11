@@ -83,7 +83,12 @@ export default class Game extends Phaser.Scene {
     this.physics.add.overlap(
       this.snowman,
       this.penguin,
-      this.handleOverlap,
+      (object1, object2) => {
+        this.handleOverlap(
+          object1 as Phaser.GameObjects.GameObject,
+          object2 as Phaser.GameObjects.GameObject,
+        );
+      },
       undefined,
       this,
     );
@@ -92,7 +97,12 @@ export default class Game extends Phaser.Scene {
     this.physics.add.overlap(
       this.coins,
       this.penguin,
-      this.handleCoinCollect,
+      (object1, object2) => {
+        this.handleCoinCollect(
+          object1 as Phaser.GameObjects.GameObject,
+          object2 as Phaser.GameObjects.GameObject,
+        );
+      },
       undefined,
       this,
     );
@@ -142,7 +152,9 @@ export default class Game extends Phaser.Scene {
     this.coins.children.each((child) => {
       const coin = child as Phaser.Physics.Arcade.Sprite;
       this.coins.killAndHide(coin);
-      coin.body.enable = false;
+      const body = coin.body as Phaser.Physics.Arcade.StaticBody;
+      body.enable = false;
+      return null;
     });
 
     const scrollX = this.cameras.main.scrollX;
@@ -181,12 +193,13 @@ export default class Game extends Phaser.Scene {
     const coin = obj2 as Phaser.Physics.Arcade.Sprite;
     this.coins.killAndHide(coin);
     this.coinSfx.play();
-    coin.body.enable = false;
+    const body = coin.body as Phaser.Physics.Arcade.StaticBody;
+    body.enable = false;
   }
 
   private handleOverlap(
-    obj1: Phaser.GameObjects.GameObject,
-    obj2: Phaser.GameObjects.GameObject,
+    object1: Phaser.GameObjects.GameObject,
+    object2: Phaser.GameObjects.GameObject,
   ) {
     this.penguin.kill();
     this.coinSpawner.destroy();
@@ -207,9 +220,11 @@ export default class Game extends Phaser.Scene {
       this.decors.forEach((obj) => (obj.x -= maxX));
       this.coins.children.each((child) => {
         const coin = child as Phaser.Physics.Arcade.Sprite;
-        if (!coin.active) return;
+        if (!coin.active) return null;
         coin.x -= maxX;
-        coin.body.updateFromGameObject();
+        const body = coin.body as Phaser.Physics.Arcade.StaticBody;
+        body.updateFromGameObject();
+        return null;
       });
     }
   }

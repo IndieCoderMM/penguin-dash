@@ -49,3 +49,5 @@ npm start
 ## 📜 License
 
 This project is licensed under the [MIT License](./LICENSE).
+
+> Sound Effect from <a href="https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=6462">Pixabay</a>
