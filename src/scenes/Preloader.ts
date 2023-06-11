@@ -21,6 +21,7 @@ export default class Preloader extends Phaser.Scene {
     this.load.image(TextureKeys.PlayBtnHover, 'ui/play-btn-hover.png');
     this.load.image(TextureKeys.RetryBtn, 'ui/retry-btn.png');
     this.load.image(TextureKeys.RetryBtnHover, 'ui/retry-btn-hover.png');
+    this.load.image(TextureKeys.ControlGuide, 'ui/control-guide.png');
     this.load.atlas(
       TextureKeys.Penguin,
       'characters/penguin.png',
@@ -33,6 +34,7 @@ export default class Preloader extends Phaser.Scene {
     this.load.audio(AudioKeys.Jump, 'sfx/jump.mp3');
     this.load.audio(AudioKeys.GameOver, 'sfx/gameover.mp3');
     this.load.audio(AudioKeys.Hit, 'sfx/hit.mp3');
+    this.load.audio(AudioKeys.Beep, 'sfx/beep.mp3');
   }
 
   create() {
@@ -44,6 +46,8 @@ export default class Preloader extends Phaser.Scene {
       .tileSprite(0, 0, width, height, TextureKeys.Background)
       .setOrigin(0);
     this.add.image(x, 200, TextureKeys.GameLogo);
+
+    const beepSfx = this.sound.add(AudioKeys.Beep);
 
     const playBtn = this.add.image(x, height - 300, TextureKeys.PlayBtn);
     // * Setting interactive mode
@@ -59,7 +63,11 @@ export default class Preloader extends Phaser.Scene {
 
     playBtn.on('pointerup', () => {
       // ! Starting the Game scene
+      beepSfx.play();
       this.scene.start(SceneKeys.Game);
     });
+
+    // Control guide
+    const spaceKey = this.add.image(x, height - 150, TextureKeys.ControlGuide);
   }
 }

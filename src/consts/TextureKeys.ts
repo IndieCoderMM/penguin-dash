@@ -12,6 +12,7 @@ enum TextureKeys {
   PlayBtnHover = 'play-btn-hover',
   RetryBtn = 'retry-btn',
   RetryBtnHover = 'retry-btn-hover',
+  ControlGuide = 'control-guide',
 }
 
 export default TextureKeys;

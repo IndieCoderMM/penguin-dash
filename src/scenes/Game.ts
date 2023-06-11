@@ -138,13 +138,6 @@ export default class Game extends Phaser.Scene {
     this.coinSfx = this.sound.add(AudioKeys.Coin);
     this.bgMusic = this.sound.add(AudioKeys.Background, { loop: true });
     this.bgMusic.play();
-
-    // Control guide
-    this.add.text(width * 0.5, height - 100, 'Press SPACE to jump', {
-      fontFamily: 'Arial',
-      fontSize: '50px',
-      color: '#f3f3f3',
-    });
   }
 
   update(t: number, dt: number) {

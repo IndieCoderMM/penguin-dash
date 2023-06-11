@@ -19,6 +19,7 @@ export default class GameOver extends Phaser.Scene {
 
     this.gameoverSfx = this.sound.add(AudioKeys.GameOver);
     this.gameoverSfx.play();
+    const beepSfx = this.sound.add(AudioKeys.Beep);
 
     const retryBtn = this.add.image(x, y - 100, TextureKeys.RetryBtn);
     // * Setting interactive mode
@@ -34,6 +35,7 @@ export default class GameOver extends Phaser.Scene {
 
     retryBtn.on('pointerup', () => {
       // ! Starting the Game scene
+      beepSfx.play();
       this.scene.start(SceneKeys.Game);
     });
   }

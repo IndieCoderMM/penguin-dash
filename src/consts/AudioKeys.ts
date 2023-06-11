@@ -4,6 +4,7 @@ enum AudioKeys {
   Coin = 'coin-sfx',
   GameOver = 'gameover-sfx',
   Hit = 'hit-sfx',
+  Beep = 'beep-sfx',
 }
 
 export default AudioKeys;

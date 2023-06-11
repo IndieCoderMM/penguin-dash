@@ -13,7 +13,8 @@ enum PenguinState {
 
 export default class Penguin extends Phaser.GameObjects.Container {
   private penguinState = PenguinState.Running;
-  private jumping: boolean;
+  private jumping = false;
+  private sliding = false;
   private groundLevel: number;
   private sprite: Phaser.GameObjects.Sprite;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -35,7 +36,6 @@ export default class Penguin extends Phaser.GameObjects.Container {
     body.setSize(this.sprite.width, this.sprite.height);
     body.setOffset(this.sprite.width * -0.5, -this.sprite.height);
 
-    this.jumping = false;
     this.groundLevel = scene.scale.height - 200;
     // Controls
     const keyboard = scene.input
@@ -59,15 +59,27 @@ export default class Penguin extends Phaser.GameObjects.Container {
     const body = this.body as Phaser.Physics.Arcade.Body;
     switch (this.penguinState) {
       case PenguinState.Running: {
-        if (!this.jumping && this.cursors.space?.isDown) {
-          body.setVelocityY(-Settings.JUMP_FORCE);
-          this.jumping = true;
-          this.jumpSfx.play();
+        if (!this.jumping) {
+          // * Jumping Control
+          if (this.cursors.space?.isDown) {
+            body.setVelocityY(-Settings.JUMP_FORCE);
+            this.jumping = true;
+            this.sliding = false;
+            this.jumpSfx.play();
+          } else if (this.cursors.right?.isDown) {
+            body.setVelocityX(Settings.SPEED * 2);
+            if (!this.sliding) this.sprite.play(AnimationKeys.PenguinSlide);
+            this.sliding = true;
+          } else {
+            body.setVelocityX(Settings.SPEED);
+            this.sliding = false;
+          }
         }
 
         if (body.y + body.height == this.groundLevel) this.jumping = false;
         if (this.jumping) this.sprite.play(AnimationKeys.PenguinJump, true);
-        else this.sprite.play(AnimationKeys.PenguinWalk, true);
+        else if (!this.sliding)
+          this.sprite.play(AnimationKeys.PenguinWalk, true);
 
         break;
       }
@@ -125,6 +137,18 @@ export default class Penguin extends Phaser.GameObjects.Container {
         start: 1,
         end: 4,
         prefix: AnimationKeys.PenguinDie,
+        zeroPad: 2,
+        suffix: '.png',
+      }),
+      frameRate: 10,
+    });
+
+    this.sprite.anims.create({
+      key: AnimationKeys.PenguinSlide,
+      frames: this.sprite.anims.generateFrameNames(TextureKeys.Penguin, {
+        start: 1,
+        end: 2,
+        prefix: AnimationKeys.PenguinSlide,
         zeroPad: 2,
         suffix: '.png',
       }),
