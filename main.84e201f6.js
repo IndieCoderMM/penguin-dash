@@ -29,4 +29,4 @@ var t,e=require("process"),i=arguments[3];!function(e,i){"object"==typeof export
 },{"phaser":"E66h","../consts/SceneKeys":"EWgy","../consts/AudioKeys":"vIlT"}],"ZCfc":[function(require,module,exports) {
 "use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.default=void 0;var e=u(require("phaser")),r=u(require("./scenes/Game")),t=u(require("./scenes/Preloader")),a=u(require("./consts/Settings")),d=u(require("./scenes/GameOver"));function u(e){return e&&e.__esModule?e:{default:e}}var s={type:e.default.AUTO,width:"100%",height:800,physics:{default:"arcade",arcade:{gravity:{y:a.default.GRAVITY}}},scene:[t.default,r.default,d.default]};document.body.style.overflow="hidden";var l=new e.default.Game(s);exports.default=l;
 },{"phaser":"E66h","./scenes/Game":"pEUU","./scenes/Preloader":"ddN1","./consts/Settings":"WabY","./scenes/GameOver":"j57G"}]},{},["ZCfc"], null)
-//# sourceMappingURL=/main.84e201f6.js.map
+//# sourceMappingURL=main.84e201f6.js.map
