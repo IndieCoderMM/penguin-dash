@@ -15,6 +15,7 @@ export default class Preloader extends Phaser.Scene {
     this.load.image(TextureKeys.TreeLarge, 'world/object_tree_large.png');
     this.load.image(TextureKeys.Iceberg, 'world/object_iceberg.png');
     this.load.image(TextureKeys.Snowman, 'characters/snowman.png');
+    this.load.image(TextureKeys.Coin, 'world/object_coin.png');
     this.load.atlas(
       TextureKeys.Penguin,
       'characters/penguin.png',

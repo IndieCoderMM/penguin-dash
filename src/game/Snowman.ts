@@ -17,7 +17,7 @@ export default class Snowman extends Phaser.GameObjects.Container {
     body.setSize(this.sprite.width - 50, this.sprite.height - 50);
     body.setOffset(
       -0.3 * this.sprite.displayWidth,
-      -0.8 * this.sprite.displayHeight,
+      -0.7 * this.sprite.displayHeight,
     );
 
     body.position.x = this.x + body.offset.x;

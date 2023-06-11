@@ -45,8 +45,6 @@ npm install
 npm start
 ```
 *Parcel will automatically compile and refresh the game as you make changes to the code.*
-1. 
-
 
 ## 📜 License
 
